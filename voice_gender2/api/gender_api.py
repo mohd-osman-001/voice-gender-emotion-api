@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
 import shutil
 import os
-from .utils import predict_gender
+from voice_gender2.api.utils import predict_gender  # Adjust path if needed
 
 router = APIRouter()
 
@@ -19,5 +19,4 @@ async def predict(file: UploadFile = File(...)):
         return JSONResponse(status_code=500, content={"error": str(e)})
 
     os.remove(temp_path)
-    print(f"predicted_gender is: {gender}")
     return JSONResponse(content={"predicted_gender": gender})
