@@ -1,8 +1,10 @@
 from fastapi import FastAPI
-# from gender_api import router as gender_router
+import os
+import uvicorn
+
+# Routers
 from Emotion_Detection.emotion_api import router as emotion_router
 from voice_gender2.api.gender_api import router as gender_router
-# from voice_gender2.api.emotion_api import router as emotion_router
 
 app = FastAPI(
     title="Unified Voice Gender and Emotion API",
@@ -25,3 +27,8 @@ def root():
             "Docs": "/docs"
         }
     }
+
+# Entry point for running with uvicorn
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
